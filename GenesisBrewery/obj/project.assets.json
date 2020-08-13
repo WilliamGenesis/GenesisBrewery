@@ -1,11 +1,68 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "BrandDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "SharedDomain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BrandDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BrandDomain.dll": {}
+        }
+      },
+      "SharedDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/SharedDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SharedDomain.dll": {}
+        }
+      },
+      "WholesalerDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "SharedDomain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WholesalerDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WholesalerDomain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "BrandDomain/1.0.0": {
+      "type": "project",
+      "path": "../BrandDomain/BrandDomain.csproj",
+      "msbuildProject": "../BrandDomain/BrandDomain.csproj"
+    },
+    "SharedDomain/1.0.0": {
+      "type": "project",
+      "path": "../SharedDomain/SharedDomain.csproj",
+      "msbuildProject": "../SharedDomain/SharedDomain.csproj"
+    },
+    "WholesalerDomain/1.0.0": {
+      "type": "project",
+      "path": "../WholesalerDomain/WholesalerDomain.csproj",
+      "msbuildProject": "../WholesalerDomain/WholesalerDomain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "BrandDomain >= 1.0.0",
+      "SharedDomain >= 1.0.0",
+      "WholesalerDomain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Administrateur\\.nuget\\packages\\": {},
@@ -36,7 +93,17 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj": {
+              "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj"
+            },
+            "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\SharedDomain\\SharedDomain.csproj": {
+              "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\SharedDomain\\SharedDomain.csproj"
+            },
+            "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\WholesalerDomain\\WholesalerDomain.csproj": {
+              "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\WholesalerDomain\\WholesalerDomain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
