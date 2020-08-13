@@ -2,6 +2,21 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "ApplicationLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "BrandDomain": "1.0.0",
+          "SharedDomain": "1.0.0",
+          "WholesalerDomain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ApplicationLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ApplicationLayer.dll": {}
+        }
+      },
       "BrandDomain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -41,6 +56,11 @@
     }
   },
   "libraries": {
+    "ApplicationLayer/1.0.0": {
+      "type": "project",
+      "path": "../ApplicationLayer/ApplicationLayer.csproj",
+      "msbuildProject": "../ApplicationLayer/ApplicationLayer.csproj"
+    },
     "BrandDomain/1.0.0": {
       "type": "project",
       "path": "../BrandDomain/BrandDomain.csproj",
@@ -59,6 +79,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "ApplicationLayer >= 1.0.0",
       "BrandDomain >= 1.0.0",
       "SharedDomain >= 1.0.0",
       "WholesalerDomain >= 1.0.0"
@@ -94,6 +115,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\ApplicationLayer\\ApplicationLayer.csproj": {
+              "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\ApplicationLayer\\ApplicationLayer.csproj"
+            },
             "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj": {
               "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj"
             },

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationLayer.Persistence
 {
-    public interface IBrandPersistance
+    public interface IBrandPersistence
     {
         Task<Guid> CreateBeer(Beer beer);
         Task<Guid> MarkBeerAsObsolete(Guid beerId)

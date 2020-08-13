@@ -4,7 +4,7 @@ using WholesalerDomain;
 
 namespace ApplicationLayer.Queries
 {
-    public interface IWholesalerQueries
+    public interface IWholesalerQuery
     {
         Task<Wholesaler> GetWholesaler(Guid id);
         Task<StockItem> GetStockItem(Guid id);

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationLayer.Queries
 {
-    public interface IBrandQueries
+    public interface IBrandQuery
     {
         Task<Brewery> GetBrewery(Guid id);
         Task<Beer> GetBeer(Guid id);
