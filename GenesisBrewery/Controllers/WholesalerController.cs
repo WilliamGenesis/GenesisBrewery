@@ -1,27 +1,43 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ApplicationLayer.Business;
+using ApplicationLayer.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WholesalerDomain;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace GenesisBrewery.Controllers
 {
     public class WholesalerController : Controller
     {
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetWholesalerStock(Guid wholesalerId)
+        private IWholesalerService _wholesalerService;
+        private IWholesalerValidation _wholesalerValidation;
+        public WholesalerController(IWholesalerService wholesalerService, IWholesalerValidation wholesalerValidation)
         {
-            throw new NotImplementedException();
+            _wholesalerService = wholesalerService;
+            _wholesalerValidation = wholesalerValidation;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetWholesalerStock(Guid wholesalerId)
+        {
+            if(!await _wholesalerValidation.WholesalerExists(wholesalerId))
+            {
+                return new NotFoundObjectResult("Wholesaler not found");
+            }
+
+            return new OkObjectResult(await _wholesalerService.GetWholesalerStock(wholesalerId));
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWholesalersByItem(Guid itemId)
         {
-            throw new NotImplementedException();
+            return new OkObjectResult(await _wholesalerService.GetWholesalersByItem(itemId));
         }
 
         [HttpPost]
@@ -29,15 +45,33 @@ namespace GenesisBrewery.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateStockItem(StockItem stockItem)
         {
-            throw new NotImplementedException();
+            var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
+            if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
+            {
+                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+            }
+
+            return new OkObjectResult(await _wholesalerService.CreateStockItem(stockItem));
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateStockItem(StockItem stockItem)
         {
-            throw new NotImplementedException();
+            if (!await _wholesalerValidation.StockItemExist(stockItem.Id))
+            {
+                return new NotFoundObjectResult("Stock item not found");
+            }
+
+            var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
+            if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
+            {
+                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+            }
+
+            return new OkObjectResult(await _wholesalerService.UpdateStockItem(stockItem));
         }
     }
 }
