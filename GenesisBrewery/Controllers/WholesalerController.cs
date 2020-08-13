@@ -19,7 +19,7 @@ namespace GenesisBrewery.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetWholesalerByItem(Guid itemId)
+        public async Task<IActionResult> GetWholesalersByItem(Guid itemId)
         {
             throw new NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace GenesisBrewery.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetWholesalerByItem(StockItem stockItem)
+        public async Task<IActionResult> CreateStockItem(StockItem stockItem)
         {
             throw new NotImplementedException();
         }
