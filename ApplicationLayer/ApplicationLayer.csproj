@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BrandDomain\BrandDomain.csproj" />
+    <ProjectReference Include="..\SharedDomain\SharedDomain.csproj" />
+    <ProjectReference Include="..\WholesalerDomain\WholesalerDomain.csproj" />
+  </ItemGroup>
+
 </Project>
