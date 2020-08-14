@@ -128,14 +128,14 @@
         }
       }
     },
-    "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj": {
+    "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj",
-        "projectName": "GenesisBrewery",
-        "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj",
+        "projectUniqueName": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectName": "DataAccessLayer",
+        "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\obj\\",
+        "outputPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -178,6 +178,101 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj",
+        "projectName": "GenesisBrewery",
+        "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\GenesisBrewery.csproj",
+        "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\GenesisBrewery\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Administrateur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\ApplicationLayer\\ApplicationLayer.csproj": {
+                "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\ApplicationLayer\\ApplicationLayer.csproj"
+              },
+              "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj": {
+                "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\BrandDomain\\BrandDomain.csproj"
+              },
+              "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\SharedDomain\\SharedDomain.csproj": {
+                "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\SharedDomain\\SharedDomain.csproj"
+              },
+              "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\WholesalerDomain\\WholesalerDomain.csproj": {
+                "projectPath": "C:\\Users\\Administrateur\\source\\repos\\GenesisBrewery\\WholesalerDomain\\WholesalerDomain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
             "System.Linq": {
               "target": "Package",
               "version": "[4.3.0, )"

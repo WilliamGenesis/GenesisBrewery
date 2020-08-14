@@ -1,6 +1,4 @@
 ﻿using BrandDomain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using WholesalerDomain;
@@ -10,13 +8,10 @@ namespace DataAccessLayer.Context
 {
     public static class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(GenesisBreweryContext context)
         {
-            using (var context = new GenesisBreweryContext(
-                serviceProvider.GetRequiredService<DbContextOptions<GenesisBreweryContext>>()))
-            {
-                var breweries = new[]
-                    {
+            var breweries = new[]
+                {
                     new Brewery{Name = "William Brew"},
                     new Brewery{Name = "Genesis Brew"},
                     new Brewery{Name = "Supreme Brew"},
@@ -24,11 +19,11 @@ namespace DataAccessLayer.Context
                     new Brewery{Name = "Zuzu Pils"},
                 };
 
-                context.Brewery.AddRange(breweries);
-                context.SaveChanges();
+            context.Brewery.AddRange(breweries);
+            context.SaveChanges();
 
-                var beers = new[]
-                    {
+            var beers = new[]
+                {
                     new Beer {Name = "Willy Blond", BreweryId = GetBreweryIdOrDefault(context, "William Brew")},
                     new Beer {Name = "Genesis IPA", BreweryId = GetBreweryIdOrDefault(context, "Genesis Brew")},
                     new Beer {Name = "Supreme Red", BreweryId = GetBreweryIdOrDefault(context, "Supreme Brew")},
@@ -38,21 +33,21 @@ namespace DataAccessLayer.Context
                     new Beer {Name = "Heineken", BreweryId = GetBreweryIdOrDefault(context, "Zuzu Pils")},
                 };
 
-                context.Beer.AddRange(beers);
-                context.SaveChanges();
+            context.Beer.AddRange(beers);
+            context.SaveChanges();
 
-                var wholesalers = new[]
-                {
+            var wholesalers = new[]
+            {
                 new Wholesaler{Name = "Genesis Shop"},
                 new Wholesaler{Name = "Zuzu Shop"},
                 new Wholesaler{Name = "Pizza Beer"},
             };
 
-                context.Wholesaler.AddRange(wholesalers);
-                context.SaveChanges();
+            context.Wholesaler.AddRange(wholesalers);
+            context.SaveChanges();
 
-                var stockItems = new[]
-                {
+            var stockItems = new[]
+            {
                 new StockItem{Quantity = 2, UnitPrice = 1.5f, ItemId = GetBeerIdOrDefault(context, "Willy Blond"), WholesalerId = GetWholesalerIdOrDefault(context, "Genesis Shop")},
                 new StockItem{Quantity = 3, UnitPrice = 2.5f, ItemId = GetBeerIdOrDefault(context, "Genesis IPA"), WholesalerId = GetWholesalerIdOrDefault(context, "Pizza Beer")},
                 new StockItem{Quantity = 1, UnitPrice = 1.6f, ItemId = GetBeerIdOrDefault(context, "Heineken"), WholesalerId = GetWholesalerIdOrDefault(context, "Genesis Shop")},
@@ -62,9 +57,8 @@ namespace DataAccessLayer.Context
                 new StockItem{Quantity = 1, UnitPrice = 1.9f, ItemId = GetBeerIdOrDefault(context, "Willy Blond"), WholesalerId = GetWholesalerIdOrDefault(context, "Zuzu Shop")},
             };
 
-                context.StockItem.AddRange(stockItems);
-                context.SaveChanges();
-            }
+            context.StockItem.AddRange(stockItems);
+            context.SaveChanges();
         }
 
         private static Guid GetBreweryIdOrDefault(GenesisBreweryContext context, string name)
