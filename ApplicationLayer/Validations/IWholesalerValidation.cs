@@ -8,7 +8,7 @@ namespace ApplicationLayer.Validations
     public interface IWholesalerValidation
     {
         Task<bool> WholesalerExists(Guid id);
-        Task<bool> StockItemExist(Guid item);
+        Task<bool> StockItemExist(Guid id);
         Task<ValidationResult[]> ValidateStockItem(StockItem item);
     }
 }

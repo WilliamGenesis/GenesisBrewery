@@ -1,4 +1,5 @@
 using ApplicationLayer.Business;
+using ApplicationLayer.Validations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,8 @@ namespace GenesisBrewery
         {
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<IWholesalerService, WholesalerService>();
+            services.AddTransient<IBrandValidation, BrandValidation>();
+            services.AddTransient<IWholesalerValidation, WholesalerValidation>();
         }
     }
 }
