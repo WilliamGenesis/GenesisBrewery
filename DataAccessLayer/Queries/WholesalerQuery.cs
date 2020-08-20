@@ -1,5 +1,6 @@
 ﻿using ApplicationLayer.Queries;
 using DataAccessLayer.Context;
+using DataAccessLayer.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,15 +28,20 @@ namespace DataAccessLayer.Queries
         {
             await Task.Delay(0);
 
-            return _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(id));
+            var wholesaler = _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(id));
+
+            return wholesaler.Resolve(_context.StockItem.ToArray());
         }
 
         public async Task<Wholesaler[]> GetWholesalersByItemId(Guid itemId)
         {
             await Task.Delay(0);
 
-            return (Wholesaler[])_context.Wholesaler.Where(wholesaler => 
-                wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.ItemId.Equals(itemId)) != null);
+            var wholesalers = _context.Wholesaler.Where(wholesaler => 
+                wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.ItemId.Equals(itemId)) != null)
+                .ToArray();
+
+            return wholesalers.Resolve(_context.StockItem.ToArray());
         }
 
         public async Task<StockItem[]> GetWholesalerStock(Guid wholesalerId)
