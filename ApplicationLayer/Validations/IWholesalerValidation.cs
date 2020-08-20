@@ -10,5 +10,6 @@ namespace ApplicationLayer.Validations
         Task<bool> WholesalerExists(Guid id);
         Task<bool> StockItemExist(Guid id);
         Task<ValidationResult[]> ValidateStockItem(StockItem item);
+        Task<ValidationResult[]> ValidateQuoteRequest(QuoteRequest request);
     }
 }

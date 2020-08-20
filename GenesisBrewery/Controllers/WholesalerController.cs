@@ -78,5 +78,20 @@ namespace GenesisBrewery.Controllers
 
             return new OkObjectResult(await _wholesalerService.UpdateStockItem(stockItem));
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("GetQuote")]
+        public async Task<IActionResult> GetQuote(QuoteRequest request)
+        {
+            var validationResults = await _wholesalerValidation.ValidateQuoteRequest(request);
+            if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
+            {
+                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+            }
+
+            return new OkObjectResult(new Quote());
+        }
     }
 }
