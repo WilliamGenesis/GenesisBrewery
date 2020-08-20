@@ -16,6 +16,14 @@ namespace DataAccessLayer.Queries
         {
             _context = context;
         }
+        public async Task<Wholesaler[]> GetWholesalers()
+        {
+            await Task.Delay(0);
+
+            var wholesalers = _context.Wholesaler.ToArray();
+
+            return wholesalers?.Resolve(_context.StockItem.ToArray());
+        }
 
         public async Task<StockItem> GetStockItem(Guid id)
         {
@@ -30,7 +38,7 @@ namespace DataAccessLayer.Queries
 
             var wholesaler = _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(id));
 
-            return wholesaler.Resolve(_context.StockItem.ToArray());
+            return wholesaler?.Resolve(_context.StockItem.ToArray());
         }
 
         public async Task<Wholesaler[]> GetWholesalersByItemId(Guid itemId)
@@ -41,14 +49,16 @@ namespace DataAccessLayer.Queries
                 wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.ItemId.Equals(itemId)) != null)
                 .ToArray();
 
-            return wholesalers.Resolve(_context.StockItem.ToArray());
+            return wholesalers?.Resolve(_context.StockItem.ToArray());
         }
 
         public async Task<StockItem[]> GetWholesalerStock(Guid wholesalerId)
         {
             await Task.Delay(0);
 
-            return _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(wholesalerId)).StockItems;
+            var wholesaler = _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(wholesalerId));
+
+            return wholesaler?.Resolve(_context.StockItem.Where(item => item.WholesalerId.Equals(wholesaler.Id)).ToArray())?.StockItems;
         }
     }
 }

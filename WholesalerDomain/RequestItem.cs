@@ -1,10 +1,10 @@
-﻿using SharedDomain;
+﻿using System;
 
 namespace WholesalerDomain
 {
     public class RequestItem
     {
-        public IItem Item { get; set; }
+        public Guid ItemId { get; set; }
         public int Quantity { get; set; }
     }
 }

@@ -52,7 +52,7 @@ namespace GenesisBrewery.Controllers
             var validationResults = await _brandValidation.ValidateBeer(beer);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
             {
-                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+                return new BadRequestObjectResult(validationResults.Where(result => result != null).Select(result => result?.ErrorMessage));
             }
 
             return new OkObjectResult(await _brandService.CreateBeer(beer));

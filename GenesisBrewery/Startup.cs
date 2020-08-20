@@ -11,6 +11,8 @@ using ApplicationLayer.Persistence;
 using DataAccessLayer.Persistence;
 using ApplicationLayer.Queries;
 using DataAccessLayer.Queries;
+using SharedDomain;
+using BrandDomain;
 
 namespace GenesisBrewery
 {

@@ -48,7 +48,7 @@ namespace DataAccessLayer.Context
             {
                 new StockItem{Id = Guid.NewGuid(), Quantity = 2, UnitPrice = 1.5f, ItemId =beers[0].Id, WholesalerId = wholesalers[0].Id},
                 new StockItem{Id = Guid.NewGuid(), Quantity = 3, UnitPrice = 2.5f, ItemId =beers[1].Id, WholesalerId = wholesalers[1].Id},
-                new StockItem{Id = Guid.NewGuid(), Quantity = 1, UnitPrice = 1.6f, ItemId =beers[2].Id, WholesalerId = wholesalers[0].Id},
+                new StockItem{Id = Guid.NewGuid(), Quantity = 25, UnitPrice = 1.6f, ItemId =beers[2].Id, WholesalerId = wholesalers[0].Id},
                 new StockItem{Id = Guid.NewGuid(), Quantity = 4, UnitPrice = 1.9f, ItemId =beers[3].Id, WholesalerId = wholesalers[2].Id},
                 new StockItem{Id = Guid.NewGuid(), Quantity = 2, UnitPrice = 3.2f, ItemId =beers[4].Id, WholesalerId = wholesalers[0].Id},
                 new StockItem{Id = Guid.NewGuid(), Quantity = 6, UnitPrice = 0.5f, ItemId =beers[5].Id, WholesalerId = wholesalers[2].Id},

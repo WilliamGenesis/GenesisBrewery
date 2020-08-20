@@ -40,9 +40,14 @@ namespace ApplicationLayer.Validations
         public async Task<ValidationResult[]> ValidateQuoteRequest(QuoteRequest request)
         {
             var results = new List<ValidationResult>();
+
+            results.Add(ValidateQuoteRequestNotEmpty(request));
             results.Add(await ValidateWholesalerId(request.WholesalerId));
-            results.Add(ValidateQuoteNotEmpty(request));
-            results.Add(ValidateQuoteAllUnique(request));
+
+            if (results.Any(result => result != ValidationResult.Success))
+                return results.ToArray();
+
+            results.Add(ValidateQuoteRequestAllUnique(request));
             results.Add(await ValidateWholesalerStock(request));
 
             return results.ToArray();
@@ -69,17 +74,17 @@ namespace ApplicationLayer.Validations
 
         #region Quote Request Validation
 
-        private ValidationResult ValidateQuoteNotEmpty(QuoteRequest request)
+        private ValidationResult ValidateQuoteRequestNotEmpty(QuoteRequest request)
         {
-            if (request is null || request.RequestItems.Length == 0)
+            if (request is null || request.RequestItems is null ||request.RequestItems.Length == 0)
                 return new ValidationResult("Quote request cannot be empty");
 
             return ValidationResult.Success;
         }
 
-        private ValidationResult ValidateQuoteAllUnique(QuoteRequest request)
+        private ValidationResult ValidateQuoteRequestAllUnique(QuoteRequest request)
         {
-            var allUnique = request.RequestItems.GroupBy(x => x.Item.Id).All(g => g.Count() == 1);
+            var allUnique = request.RequestItems.GroupBy(x => x.ItemId).All(g => g.Count() == 1);
 
             return allUnique 
                 ? ValidationResult.Success
@@ -92,12 +97,12 @@ namespace ApplicationLayer.Validations
 
             foreach(var requestItem in request.RequestItems)
             {
-                var requestedItemInStock = wholesalerStock.FirstOrDefault(stockItem => stockItem.ItemId.Equals(requestItem.Item.Id));
+                var requestedItemInStock = wholesalerStock.FirstOrDefault(stockItem => stockItem.ItemId.Equals(requestItem.ItemId));
 
                 if (requestedItemInStock is null) 
                     return new ValidationResult("Requested Item is not sold by this wholesaler");
                 if (requestedItemInStock.Quantity < requestItem.Quantity)
-                    return new ValidationResult($"Requested quantity for item {requestItem.Item.Id} is not available at this wholesaler");
+                    return new ValidationResult($"Requested quantity for item {requestItem.ItemId} is not available at this wholesaler");
             }
 
             return ValidationResult.Success;

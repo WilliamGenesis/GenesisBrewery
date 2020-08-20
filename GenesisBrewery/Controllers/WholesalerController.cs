@@ -23,6 +23,14 @@ namespace GenesisBrewery.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("GetWholesalers")]
+        public async Task<IActionResult> GetWholesalersByItem()
+        {
+            return new OkObjectResult(await _wholesalerService.GetWholesalers());
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("{wholesalerId}")]
         public async Task<IActionResult> GetWholesalerStock(Guid wholesalerId)
@@ -52,7 +60,7 @@ namespace GenesisBrewery.Controllers
             var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
             {
-                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+                return new BadRequestObjectResult(validationResults.Where(result => result != null).Select(result => result?.ErrorMessage));
             }
 
             return new OkObjectResult(await _wholesalerService.CreateStockItem(stockItem));
@@ -73,7 +81,7 @@ namespace GenesisBrewery.Controllers
             var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
             {
-                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+                return new BadRequestObjectResult(validationResults.Where(result => result != null).Select(result => result?.ErrorMessage));
             }
 
             return new OkObjectResult(await _wholesalerService.UpdateStockItem(stockItem));
@@ -83,15 +91,17 @@ namespace GenesisBrewery.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetQuote")]
-        public async Task<IActionResult> GetQuote(QuoteRequest request)
+        public async Task<IActionResult> GetQuote([FromBody]QuoteRequest request)
         {
             var validationResults = await _wholesalerValidation.ValidateQuoteRequest(request);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
             {
-                return new BadRequestObjectResult(validationResults.Select(result => result.ErrorMessage));
+                return new BadRequestObjectResult(validationResults.Where(result => result != null).Select(result => result?.ErrorMessage));
             }
 
-            return new OkObjectResult(new Quote());
+            var quote = await _wholesalerService.GenerateQuote(request);
+
+            return new OkObjectResult(quote);
         }
     }
 }

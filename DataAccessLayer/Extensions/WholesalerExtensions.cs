@@ -17,7 +17,7 @@ namespace DataAccessLayer.Extensions
 
         public static Wholesaler[] Resolve(this Wholesaler[] wholesalers, StockItem[] stockItems)
         {
-            return wholesalers.Select(wholesaler => wholesaler.Resolve(stockItems))
+            return wholesalers.Select(wholesaler => wholesaler.Resolve(stockItems.Where(item => item.WholesalerId.Equals(wholesaler.Id)).ToArray()))
                 .ToArray();
         }
     }

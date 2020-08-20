@@ -23,7 +23,7 @@ namespace DataAccessLayer.Queries
 
             var beer = _context.Beer.FirstOrDefault(beer => beer.Id.Equals(id));
 
-            return beer.Resolve(_context.Brewery.FirstOrDefault(brewery => brewery.Id.Equals(beer.BreweryId)));
+            return beer?.Resolve(_context.Brewery.FirstOrDefault(brewery => brewery.Id.Equals(beer.BreweryId)));
         }
 
         public async Task<Beer[]> GetBeers(Guid BreweryId)
@@ -32,7 +32,7 @@ namespace DataAccessLayer.Queries
 
             var beers =  _context.Beer.Where(beer => beer.IsObsolete == false && beer.BreweryId.Equals(BreweryId)).ToArray();
 
-            return beers.Resolve(_context.Brewery.ToArray());
+            return beers?.Resolve(_context.Brewery.ToArray());
         }
 
         public async Task<Brewery[]> GetBreweries()
@@ -40,7 +40,7 @@ namespace DataAccessLayer.Queries
             await Task.Delay(0);
             var breweries = _context.Brewery.ToArray();
 
-            return breweries.Resolve(_context.Beer.ToArray());
+            return breweries?.Resolve(_context.Beer.ToArray());
         }
 
         public async Task<Brewery> GetBrewery(Guid id)
@@ -49,7 +49,7 @@ namespace DataAccessLayer.Queries
 
             var brewery = _context.Brewery.FirstOrDefault(brewery => brewery.Id.Equals(id));
 
-            return brewery.Resolve(_context.Beer.ToArray());
+            return brewery?.Resolve(_context.Beer.ToArray());
         }
     }
 }
