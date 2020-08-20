@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GenesisBrewery.Controllers
 {
+    [Route("v1/brand")]
     public class BrandController : Controller
     {
         private IBrandService _brandService;
@@ -22,6 +23,7 @@ namespace GenesisBrewery.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("GetBreweries")]
         public async Task<IActionResult> GetBreweries()
         {
             return new OkObjectResult(await _brandService.GetBreweries());
@@ -30,6 +32,7 @@ namespace GenesisBrewery.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("Brewery/{breweryId}/beers")]
         public async Task<IActionResult> GetBreweryBeers(Guid breweryId)
         {
             if (!await _brandValidation.BreweryExists(breweryId))

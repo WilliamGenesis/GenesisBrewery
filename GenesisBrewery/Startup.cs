@@ -32,6 +32,8 @@ namespace GenesisBrewery
             RegisterDataAccess(services);
 
             RegisterContext(services);
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,14 @@ namespace GenesisBrewery
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
 
             app.UseHttpsRedirection();
 
@@ -56,8 +66,7 @@ namespace GenesisBrewery
 
         private void RegisterContext(IServiceCollection services)
         {
-            services.AddDbContext<GenesisBreweryContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IGenesisBreweryContext, GenesisBreweryFakeContext>();
         }
 
         private void RegisterApplication(IServiceCollection services)

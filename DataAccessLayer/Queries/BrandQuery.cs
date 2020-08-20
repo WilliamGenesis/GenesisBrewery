@@ -1,30 +1,46 @@
 ﻿using ApplicationLayer.Queries;
 using BrandDomain;
+using DataAccessLayer.Context;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Queries
 {
     public class BrandQuery : IBrandQuery
     {
-        public Task<Beer> GetBeer(Guid id)
+        private IGenesisBreweryContext _context;
+
+        public BrandQuery(IGenesisBreweryContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<Beer[]> GetBeers(Guid BreweryId)
+        public async Task<Beer> GetBeer(Guid id)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            return _context.Beer.FirstOrDefault(beer => beer.Id.Equals(id));
         }
 
-        public Task<Brewery[]> GetBreweries()
+        public async Task<Beer[]> GetBeers(Guid BreweryId)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            return _context.Beer.ToArray();
         }
 
-        public Task<Brewery> GetBrewery(Guid id)
+        public async Task<Brewery[]> GetBreweries()
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+            return _context.Brewery.ToArray();
+        }
+
+        public async Task<Brewery> GetBrewery(Guid id)
+        {
+            await Task.Delay(0);
+
+            return _context.Brewery.FirstOrDefault(brewery => brewery.Id.Equals(id));
         }
     }
 }

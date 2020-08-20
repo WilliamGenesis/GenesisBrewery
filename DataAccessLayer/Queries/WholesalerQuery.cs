@@ -1,5 +1,7 @@
 ﻿using ApplicationLayer.Queries;
+using DataAccessLayer.Context;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WholesalerDomain;
 
@@ -7,24 +9,40 @@ namespace DataAccessLayer.Queries
 {
     public class WholesalerQuery : IWholesalerQuery
     {
-        public Task<StockItem> GetStockItem(Guid id)
+        private IGenesisBreweryContext _context;
+
+        public WholesalerQuery(IGenesisBreweryContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<Wholesaler> GetWholesaler(Guid id)
+        public async Task<StockItem> GetStockItem(Guid id)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            return _context.StockItem.FirstOrDefault(stockItem => stockItem.Id.Equals(id));
         }
 
-        public Task<Wholesaler[]> GetWholesalersByItemId(Guid itemId)
+        public async Task<Wholesaler> GetWholesaler(Guid id)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            return _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(id));
         }
 
-        public Task<StockItem[]> GetWholesalerStock(Guid wholesalerId)
+        public async Task<Wholesaler[]> GetWholesalersByItemId(Guid itemId)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            return (Wholesaler[])_context.Wholesaler.Where(wholesaler => 
+                wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.Id.Equals(itemId)) != null);
+        }
+
+        public async Task<StockItem[]> GetWholesalerStock(Guid wholesalerId)
+        {
+            await Task.Delay(0);
+
+            return _context.Wholesaler.FirstOrDefault(wholesaler => wholesaler.Id.Equals(wholesalerId)).StockItems;
         }
     }
 }

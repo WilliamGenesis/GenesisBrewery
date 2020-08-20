@@ -1,5 +1,7 @@
 ﻿using ApplicationLayer.Persistence;
+using DataAccessLayer.Context;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WholesalerDomain;
 
@@ -7,14 +9,32 @@ namespace DataAccessLayer.Persistence
 {
     public class WholesalerPersistence : IWholesalerPersistence
     {
-        public Task<Guid> CreateStockItem(StockItem item)
+        private IGenesisBreweryContext _context;
+
+        public WholesalerPersistence(IGenesisBreweryContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<Guid> UpdateStockItem(StockItem item)
+        public async Task<Guid> CreateStockItem(StockItem item)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+
+            item.Id = new Guid();
+            
+            _context.StockItem.Add(item);
+
+            return item.Id;
+        }
+
+        public async Task<Guid> UpdateStockItem(StockItem item)
+        {
+            await Task.Delay(0);
+
+            var itemToUpdate = _context.StockItem.FirstOrDefault(stockItem => stockItem.Id == item.Id);
+            itemToUpdate = item;
+
+            return item.Id;
         }
     }
 }
