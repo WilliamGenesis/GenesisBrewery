@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GenesisBrewery.Controllers
 {
+    [Route("v1/{Controller}")]
     public class WholesalerController : Controller
     {
         private IWholesalerService _wholesalerService;
@@ -23,6 +24,7 @@ namespace GenesisBrewery.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("{wholesalerId}")]
         public async Task<IActionResult> GetWholesalerStock(Guid wholesalerId)
         {
             if(!await _wholesalerValidation.WholesalerExists(wholesalerId))
@@ -35,6 +37,7 @@ namespace GenesisBrewery.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("StockItem/{itemId}")]
         public async Task<IActionResult> GetWholesalersByItem(Guid itemId)
         {
             return new OkObjectResult(await _wholesalerService.GetWholesalersByItem(itemId));
@@ -43,6 +46,7 @@ namespace GenesisBrewery.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("CreateStockItem")]
         public async Task<IActionResult> CreateStockItem(StockItem stockItem)
         {
             var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
@@ -58,6 +62,7 @@ namespace GenesisBrewery.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("UpdateStockItem")]
         public async Task<IActionResult> UpdateStockItem(StockItem stockItem)
         {
             if (!await _wholesalerValidation.StockItemExist(stockItem.Id))

@@ -35,7 +35,7 @@ namespace DataAccessLayer.Queries
             await Task.Delay(0);
 
             return (Wholesaler[])_context.Wholesaler.Where(wholesaler => 
-                wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.Id.Equals(itemId)) != null);
+                wholesaler.StockItems.FirstOrDefault(stockItem => stockItem.ItemId.Equals(itemId)) != null);
         }
 
         public async Task<StockItem[]> GetWholesalerStock(Guid wholesalerId)

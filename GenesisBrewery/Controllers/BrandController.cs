@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GenesisBrewery.Controllers
 {
-    [Route("v1/brand")]
+    [Route("v1/{Controller}")]
     public class BrandController : Controller
     {
         private IBrandService _brandService;
@@ -46,7 +46,8 @@ namespace GenesisBrewery.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateBeer(Beer beer)
+        [Route("CreateBeer")]
+        public async Task<IActionResult> CreateBeer([FromBody]Beer beer)
         {
             var validationResults = await _brandValidation.ValidateBeer(beer);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
@@ -60,6 +61,7 @@ namespace GenesisBrewery.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("MarkBeerAsObsolete/{beerId}")]
         public async Task<IActionResult> MarkBeerAsObsolete(Guid beerId)
         {
             if(!await _brandValidation.BeerExists(beerId))

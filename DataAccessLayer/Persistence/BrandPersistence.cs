@@ -20,7 +20,7 @@ namespace DataAccessLayer.Persistence
         {
             await Task.Delay(0);
 
-            beer.Id = new Guid();
+            beer.Id = Guid.NewGuid();
             _context.Beer.Add(beer);
 
             return beer.Id;

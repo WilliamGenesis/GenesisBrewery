@@ -20,7 +20,7 @@ namespace DataAccessLayer.Persistence
         {
             await Task.Delay(0);
 
-            item.Id = new Guid();
+            item.Id = Guid.NewGuid();
             
             _context.StockItem.Add(item);
 

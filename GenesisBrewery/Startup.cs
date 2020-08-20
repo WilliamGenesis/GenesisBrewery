@@ -66,7 +66,7 @@ namespace GenesisBrewery
 
         private void RegisterContext(IServiceCollection services)
         {
-            services.AddTransient<IGenesisBreweryContext, GenesisBreweryFakeContext>();
+            services.AddSingleton<IGenesisBreweryContext, GenesisBreweryFakeContext>();
         }
 
         private void RegisterApplication(IServiceCollection services)

@@ -1,5 +1,6 @@
 ﻿using BrandDomain;
 using System.Collections.Generic;
+using System.Linq;
 using WholesalerDomain;
 
 namespace DataAccessLayer.Context
