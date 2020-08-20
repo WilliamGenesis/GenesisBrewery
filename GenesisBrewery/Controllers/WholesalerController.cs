@@ -55,7 +55,7 @@ namespace GenesisBrewery.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("CreateStockItem")]
-        public async Task<IActionResult> CreateStockItem(StockItem stockItem)
+        public async Task<IActionResult> CreateStockItem([FromBody]StockItem stockItem)
         {
             var validationResults = await _wholesalerValidation.ValidateStockItem(stockItem);
             if (validationResults.Any(validationResult => validationResult != ValidationResult.Success))
@@ -71,7 +71,7 @@ namespace GenesisBrewery.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("UpdateStockItem")]
-        public async Task<IActionResult> UpdateStockItem(StockItem stockItem)
+        public async Task<IActionResult> UpdateStockItem([FromBody]StockItem stockItem)
         {
             if (!await _wholesalerValidation.StockItemExist(stockItem.Id))
             {

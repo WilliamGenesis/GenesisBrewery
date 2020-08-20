@@ -32,7 +32,9 @@ namespace DataAccessLayer.Persistence
             await Task.Delay(0);
 
             var itemToUpdate = _context.StockItem.FirstOrDefault(stockItem => stockItem.Id == item.Id);
-            itemToUpdate = item;
+
+            _context.StockItem.Remove(itemToUpdate);
+            _context.StockItem.Add(item);
 
             return item.Id;
         }
