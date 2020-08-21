@@ -31,6 +31,10 @@ namespace ApplicationLayer.Validations
         {
             var results = new List<ValidationResult>();
             results.Add(await ValidateWholesalerId(item.WholesalerId));
+
+            if (results.Any(result => result != ValidationResult.Success))
+                return results.ToArray();
+
             results.Add(ValidateStockItemPrice(item.UnitPrice));
             results.Add(ValidateStockItemQuantity(item.Quantity));
 
@@ -67,7 +71,7 @@ namespace ApplicationLayer.Validations
         {
             return quantity >= 0
                 ? ValidationResult.Success
-                : new ValidationResult("The price of a stock item cannot be negative");
+                : new ValidationResult("The quantity of a stock item cannot be negative");
         }
 
         #endregion
@@ -113,10 +117,10 @@ namespace ApplicationLayer.Validations
         private async Task<ValidationResult> ValidateWholesalerId(Guid wholesalerId)
         {
             if (wholesalerId.Equals(Guid.Empty))
-                return new ValidationResult("A stock item must always be linked to a wholesaler");
+                return new ValidationResult("The wholesaler cannot be null or empty");
 
             if (await _wholesalerQuery.GetWholesaler(wholesalerId) is null)
-                return new ValidationResult("A stock item must always be linked to an existing wholesaler");
+                return new ValidationResult("The wholesaler does not exist");
 
             return ValidationResult.Success;
         }
